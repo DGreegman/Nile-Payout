@@ -1,5 +1,5 @@
 
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import config from './config';
@@ -25,7 +25,11 @@ app.use(async (req, res, next) => {
 app.use(express.json());
 
 // Serve Swagger UI assets explicitly
-app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec), swaggerUi.setup(swaggerSpec));
+// app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec), swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', (req:Request, res:Response, next:NextFunction) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'");
+  next();
+}, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRoutes);
 app.use('/orders', authMiddleware, orderRoutes);
