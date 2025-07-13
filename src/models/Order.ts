@@ -10,7 +10,7 @@ export interface IOrder extends Document {
   amount: number;
   status: OrderStatus;
   timestamp: Date;
-  vendor: Schema.Types.ObjectId; // Now references User
+  vendor: Schema.Types.ObjectId; 
 }
 
 const orderSchema = new Schema({
@@ -18,7 +18,7 @@ const orderSchema = new Schema({
   amount: { type: Number, required: true },
   status: { type: String, enum: Object.values(OrderStatus), default: OrderStatus.Pending },
   timestamp: { type: Date, default: Date.now },
-  vendor: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Changed ref to 'User'
+  vendor: { type: Schema.Types.ObjectId, ref: 'User', required: true }, 
 });
 
 export default model<IOrder>('Order', orderSchema);

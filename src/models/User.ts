@@ -1,3 +1,4 @@
+
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
@@ -13,7 +14,7 @@ export interface IUser extends Document {
 const userSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false }, // Added select: false
   bank_account: { type: String, required: true },
   store_name: { type: String, required: true },
 });

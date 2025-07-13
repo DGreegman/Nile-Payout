@@ -1,4 +1,3 @@
-
 import express from 'express';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
@@ -31,6 +30,14 @@ app.use('/payouts', authMiddleware, payoutRoutes);
 app.use('/health', healthRoutes);
 
 app.use(errorHandler);
+
+// Conditional server start for local development
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running locally on port ${PORT}`);
+  });
+}
 
 // Export the app for Vercel
 export default app;
