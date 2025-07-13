@@ -1,7 +1,9 @@
+
 import express from 'express';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import config from './config';
+import path from 'path';
 
 import orderRoutes from './routes/orderRoutes';
 import payoutRoutes from './routes/payoutRoutes';
@@ -22,7 +24,8 @@ app.use(async (req, res, next) => {
 
 app.use(express.json());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Serve Swagger UI assets explicitly
+app.use('/api-docs', swaggerUi.serveFiles(swaggerSpec), swaggerUi.setup(swaggerSpec));
 
 app.use('/auth', authRoutes);
 app.use('/orders', authMiddleware, orderRoutes);
