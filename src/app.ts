@@ -30,7 +30,7 @@ app.get('/api-docs/swagger.json', (req, res) => {
   res.json(swaggerSpec);
 });
 
-app.get('/api-docs', (req, res) => {
+app.get('/docs', (req, res) => {
   const html = `
     <!DOCTYPE html>
     <html>
